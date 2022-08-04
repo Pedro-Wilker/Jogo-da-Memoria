@@ -32,4 +32,10 @@ const createCard = () => {
     return card;
 }
 
-createCard();
+const loadGame = () => {
+
+    cards.forEach((card) => {
+        
+    });
+
+}
