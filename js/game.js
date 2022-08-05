@@ -1,17 +1,17 @@
 const grid= document.querySelector('.grid');
 
-const cards= () => { 
+const characters = [
     'beth',
-    'morty',
+    'jerry',
     'jessica',
+    'morty',
+    'pessoa-passaro',
+    'pickle-rick',
     'rick',
     'summer',
     'meeseeks',
-    'pickles-rick',
-    'scroopy',
-    'pessoa-passaro',
-    'jerry',
-}
+    'scroopy', 
+  ];
 
 const createElement= (tag, className) => {
 
@@ -20,22 +20,30 @@ const createElement= (tag, className) => {
     return element;
 }
 
-const createCard = () => {
+const createCard = (character) => {
 
     const card = createElement('div', 'card');
     const front = createElement('div', 'face front');
     const back = createElement('div', 'face back');
 
+    front.style.backgroundImage = `url('../images/${character}.png')`;
+
     card.appendChild(front);
     card.appendChild(back);
-
+    
     return card;
+  }
+
+const loadGame= () => {
+
+    const duplicateCard = [...characters, ...characters];
+
+    const shuffledArray = duplicateCard.sort(()=> Math.random() - 0.5)
+
+    duplicateCard.forEach((character)=>{
+        const card = createCard(character);
+        grid.appendChild(card);
+    })
 }
 
-const loadGame = () => {
-
-    cards.forEach((card) => {
-        
-    });
-
-}
+loadGame();
