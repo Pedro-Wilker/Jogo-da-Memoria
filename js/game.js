@@ -1,4 +1,6 @@
 const grid= document.querySelector('.grid');
+const spanPlayer= document.querySelector('.player');
+const timer = document.querySelector('.timer')
 
 const characters = [
     'beth',
@@ -20,12 +22,40 @@ const createElement= (tag, className) => {
     return element;
 }
 
+
+const checkEndGame = () => {
+  const disabledCard = document.querySelectorAll('.disabled-card');
+
+  if(disabledCard.length === 20) {
+    clearInterval(this.loop);
+    alert(`Parabéns, ${spanPlayer.innerHTML}! Seu tempo foi: ${timer.innerHTML}`);
+  }
+}
+
 const checkCards = () => {
   const firstCharacter= firstCard.getAttribute('data-character');
   const secondCharacter= secondCard.getAttribute('data-character'); 
 
   if(firstCharacter== secondCharacter){ 
     
+    firstCard.firstChild.classList.add('disabled-card');
+    secondCard.firstChild.classList.add('disabled-card');
+
+    firstCard = '';
+    secondCard = '';
+    
+
+    checkEndGame();
+  } else {
+    setTimeout(() => {
+
+      firstCard.classList.remove('reveal-card');
+      secondCard.classList.remove('reveal-card');
+
+      firstCard = '';
+      secondCard = '';
+
+    }, 500);
   }
 }
  
@@ -82,4 +112,18 @@ const loadGame= () => {
     })
 }
 
-loadGame();
+const startTimer = () => { 
+  this.loop = setInterval(() => {
+
+    const currentTime = Number(timer.innerHTML);
+    timer.innerHTML = currentTime + 1;
+
+  },1000);
+}
+
+window.onload = () => {
+  spanPlayer.innerHTML = localStorage.getItem('jogador');
+  startTimer(); 
+  loadGame();
+}
+
